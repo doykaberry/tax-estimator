@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crypto & Freelance Tax Estimator</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
+    input, select { width: 100%; padding: 8px; margin-top: 10px; }
+    button { padding: 10px 20px; margin-top: 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; }
+    #result { margin-top: 20px; background-color: #f0f0f0; padding: 15px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Crypto & Freelance Tax Estimator (US)</h2>
+  <label>Freelance Income (USD):</label>
+  <input type="number" id="freelance" />
+
+  <label>Crypto Gains (USD):</label>
+  <input type="number" id="crypto" />
+
+  <label>Business Expenses (USD):</label>
+  <input type="number" id="expenses" />
+
+  <button onclick="estimateTax()">Estimate Tax</button>
+
+  <div id="result"></div>
+
+  <script>
+    function estimateTax() {
+      const freelance = parseFloat(document.getElementById('freelance').value) || 0;
+      const crypto = parseFloat(document.getElementById('crypto').value) || 0;
+      const expenses = parseFloat(document.getElementById('expenses').value) || 0;
+
+      const grossIncome = freelance + crypto;
+      const taxableIncome = Math.max(0, grossIncome - expenses);
+
+      const tax = taxableIncome * 0.25;
+      const net = taxableIncome - tax;
+
+      document.getElementById('result').innerHTML = `
+        <h3>Estimated Tax Summary:</h3>
+        <p><strong>Total Tax:</strong> $${tax.toFixed(2)}</p>
+        <p><strong>Net Income:</strong> $${net.toFixed(2)}</p>
+        <p><strong>Want to file taxes easily?</strong><br>
+          Try <a href="https://coinledger.io?ref=YOURID" target="_blank">CoinLedger</a> or
+          <a href="https://turbotax.intuit.com/" target="_blank">TurboTax</a>.</p>
+      `;
+    }
+  </script>
+</body>
+</html>

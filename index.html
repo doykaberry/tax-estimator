@@ -1,49 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Crypto & Freelance Tax Estimator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelance & Crypto Tax Estimator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial; max-width: 600px; margin: 20px auto; padding: 20px; }
-    input, select { width: 100%; padding: 8px; margin-top: 10px; }
-    button { padding: 10px 20px; margin-top: 15px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; }
-    #result { margin-top: 20px; background-color: #f0f0f0; padding: 15px; border-radius: 5px; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 1rem;
+      color: #6b7280;
+    }
+    main {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      max-width: 500px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      background: #2563eb;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .affiliate {
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    .affiliate a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #9ca3af;
+    }
+    footer a {
+      color: #2563eb;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
-  <h2>Crypto & Freelance Tax Estimator (US)</h2>
-  <label>Freelance Income (USD):</label>
-  <input type="number" id="freelance" />
+  <header>
+    <h1>Jake’s Freelance + Crypto Tax Estimator</h1>
+    <p>Estimate what you owe in seconds — 100% free, no sign-up.</p>
+  </header>
 
-  <label>Crypto Gains (USD):</label>
-  <input type="number" id="crypto" />
+  <main>
+    <label for="freelance">Freelance Income ($):</label>
+    <input type="number" id="freelance" placeholder="e.g. 12000" />
 
-  <label>Business Expenses (USD):</label>
-  <input type="number" id="expenses" />
+    <label for="crypto">Crypto Gains ($):</label>
+    <input type="number" id="crypto" placeholder="e.g. 3500" />
 
-  <button onclick="estimateTax()">Estimate Tax</button>
+    <button onclick="estimateTax()">Estimate My Taxes</button>
 
-  <div id="result"></div>
+    <div class="result" id="output"></div>
+
+    <div class="affiliate">
+      Need a full crypto tax report? Try <a href="https://coinledger.io?fpr=4csaq" target="_blank">CoinLedger</a> (affiliate link).
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 JakeCryptoTax | <a href="https://jakecryptotax.blogspot.com" target="_blank">Visit the Blog</a></p>
+    <p><em>This site contains affiliate links. I may earn a commission at no extra cost to you.</em></p>
+  </footer>
 
   <script>
     function estimateTax() {
       const freelance = parseFloat(document.getElementById('freelance').value) || 0;
       const crypto = parseFloat(document.getElementById('crypto').value) || 0;
-      const expenses = parseFloat(document.getElementById('expenses').value) || 0;
-
-      const grossIncome = freelance + crypto;
-      const taxableIncome = Math.max(0, grossIncome - expenses);
-
-      const tax = taxableIncome * 0.25;
-      const net = taxableIncome - tax;
-
-      document.getElementById('result').innerHTML = `
-        <h3>Estimated Tax Summary:</h3>
-        <p><strong>Total Tax:</strong> $${tax.toFixed(2)}</p>
-        <p><strong>Net Income:</strong> $${net.toFixed(2)}</p>
-        <p><strong>Want to file taxes easily?</strong><br>
-          Try <a href="https://coinledger.io?fpr=4csaq" target="_blank">CoinLedger</a> or
-          <a href="https://turbotax.intuit.com/" target="_blank">TurboTax</a>.</p>
-      `;
+      const totalIncome = freelance + crypto;
+      const estimatedTax = totalIncome * 0.25;
+      document.getElementById('output').innerText = `Estimated tax owed: $${estimatedTax.toFixed(2)}`;
     }
   </script>
 </body>
